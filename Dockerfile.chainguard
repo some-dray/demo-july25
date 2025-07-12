@@ -8,7 +8,7 @@ WORKDIR /app
 
 # Create a virtual environment to isolate dependencies
 RUN python -m venv venv
-ENV PATH="/app/venv/bin":$PATH
+ENV PATH="/app/venv/bin:$PATH"
 
 # Install dependencies into the virtual environment
 # We call pip from the venv directly
@@ -34,7 +34,7 @@ COPY /app /app
 ENV IMAGE_NAME="cgr.dev/chainguard/python:latest (multi-stage)"
 
 # Add the venv to the PATH so the app can find the python executable
-ENV PATH="/app/venv/bin":$PATH
+ENV PATH="/app/venv/bin:$PATH"
 
 EXPOSE 8080
 
