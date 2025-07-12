@@ -81,18 +81,18 @@ echo "
 To run the containers and view the reports, use the following commands:
 "
 echo "--- Debian Container (Slim Image) ---"
-echo "Then open ${bold}http://localhost:8080${normal} in your browser."
-echo "To stop the container, run: ${bold}docker stop $DEBIAN_IMAGE${normal}"
+echo "Then open http://localhost:8080 in your browser."
+echo "To stop the container, run: docker stop $DEBIAN_IMAGE"
 
 
 echo "--- Chainguard Container (Secure Image) ---"
-echo "Then open ${bold}http://localhost:8081${normal} in your browser."
-echo "To stop the container, run: ${bold}docker stop $CHAINGUARD_IMAGE${normal}"
+echo "Then open http://localhost:8081 in your browser."
+echo "To stop the container, run: docker stop $CHAINGUARD_IMAGE"
 
 
 echo "--- Debian Container (Full Image) ---"
-echo "Then open ${bold}http://localhost:8082${normal} in your browser."
-echo "To stop the container, run: ${bold}docker stop $DEBIAN_FULL_IMAGE${normal}"
+echo "Then open http://localhost:8082 in your browser."
+echo "To stop the container, run: docker stop $DEBIAN_FULL_IMAGE"
 
 echo "
-${bold}Notice the significant difference in the number of vulnerabilities!${normal}"
+Notice the significant difference in the number of vulnerabilities!"
