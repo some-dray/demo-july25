@@ -60,6 +60,19 @@ grype $CHAINGUARD_IMAGE -o json > ./reports/grype-report-chainguard.json
 
 # --- Final Instructions ---
 echo "
+--- Starting Containers! ---
+"
+echo "--- Debian Container (Slim Image) ---"
+docker run -d -p 8080:8080 --rm -v $(pwd)/reports/grype-report-debian.json:/app/grype-report.json:ro --name $DEBIAN_IMAGE $DEBIAN_IMAGE
+
+echo "--- Chainguard Container (Secure Image) ---"
+docker run -d -p 8081:8080 --rm -v $(pwd)/reports/grype-report-chainguard.json:/app/grype-report.json:ro --name $CHAINGUARD_IMAGE $CHAINGUARD_IMAGE
+
+echo "--- Debian Container (Full Image) ---"
+docker run -d -p 8082:8080 --rm -v $(pwd)/reports/grype-report-debian-full.json:/app/grype-report.json:ro --name $DEBIAN_FULL_IMAGE $DEBIAN_FULL_IMAGE
+
+# --- Final Instructions ---
+echo "
 --- Demo Ready! ---
 "
 echo "Three Docker images have been built and scanned for vulnerabilities."
@@ -68,21 +81,18 @@ echo "
 To run the containers and view the reports, use the following commands:
 "
 echo "--- Debian Container (Slim Image) ---"
-echo "docker run -d -p 8080:8080 --rm -v $(pwd)/reports/grype-report-debian.json:/app/grype-report.json:ro --name $DEBIAN_IMAGE $DEBIAN_IMAGE"
-echo "Then open http://localhost:8080 in your browser."
-echo "To stop the container, run: docker stop $DEBIAN_IMAGE"
+echo "Then open ${bold}http://localhost:8080${normal} in your browser."
+echo "To stop the container, run: ${bold}docker stop $DEBIAN_IMAGE${normal}"
 
-echo "
---- Chainguard Container (Secure Image) ---"
-echo "docker run -d -p 8081:8080 --rm -v $(pwd)/reports/grype-report-chainguard.json:/app/grype-report.json:ro --name $CHAINGUARD_IMAGE $CHAINGUARD_IMAGE"
-echo "Then open http://localhost:8081 in your browser."
-echo "To stop the container, run: docker stop $CHAINGUARD_IMAGE"
+
+echo "--- Chainguard Container (Secure Image) ---"
+echo "Then open ${bold}http://localhost:8081${normal} in your browser."
+echo "To stop the container, run: ${bold}docker stop $CHAINGUARD_IMAGE${normal}"
 
 
 echo "--- Debian Container (Full Image) ---"
-echo "docker run -d -p 8082:8080 --rm -v $(pwd)/reports/grype-report-debian-full.json:/app/grype-report.json:ro --name $DEBIAN_FULL_IMAGE $DEBIAN_FULL_IMAGE"
-echo "Then open http://localhost:8082 in your browser."
-echo "To stop the container, run: docker stop $DEBIAN_FULL_IMAGE"
+echo "Then open ${bold}http://localhost:8082${normal} in your browser."
+echo "To stop the container, run: ${bold}docker stop $DEBIAN_FULL_IMAGE${normal}"
 
 echo "
-Notice the significant difference in the number of vulnerabilities!"
+${bold}Notice the significant difference in the number of vulnerabilities!${normal}"
