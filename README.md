@@ -42,19 +42,26 @@ Before you begin, ensure you have the following tools installed:
     *   **Debian Container (on port 8080):**
 
         ```bash
-        docker run -d -p 8080:8080 --rm -v $(pwd)/reports/grype-report-debian.html:/app/grype-report.html:ro --name python-debian-demo python-debian-demo
+        docker run -d -p 8080:8080 --rm -v $(pwd)/reports/grype-report-debian.json:/app/grype-report.json:ro --name python-debian-demo python-debian-demo
         ```
 
     *   **Chainguard Container (on port 8081):**
 
         ```bash
-        docker run -d -p 8081:8080 --rm -v $(pwd)/reports/grype-report-chainguard.html:/app/grype-report.html:ro --name python-chainguard-demo python-chainguard-demo
+        docker run -d -p 8081:8080 --rm -v $(pwd)/reports/grype-report-chainguard.json:/app/grype-report.json:ro --name python-chainguard-demo python-chainguard-demo
+        ```
+
+    *   **Debian Full Container (on port 8082):**
+
+        ```bash
+        docker run -d -p 8082:8080 --rm -v $(pwd)/reports/grype-report-debian-full.json:/app/grype-report.json:ro --name python-debian-full-demo python-debian-full-demo
         ```
 
 4.  **View the Results:**
 
     *   Open your web browser to [http://localhost:8080](http://localhost:8080) to see the vulnerability report for the **Debian-based image**.
     *   Open a new tab and navigate to [http://localhost:8081](http://localhost:8081) to see the vulnerability report for the **Chainguard image**.
+    *   Open a new tab and navigate to [http://localhost:8082](http://localhost:8082) to see the vulnerability report for the **Debian Full image**.
 
 5.  **Stop the containers:**
 
@@ -63,6 +70,7 @@ Before you begin, ensure you have the following tools installed:
     ```bash
     docker stop python-debian-demo
     docker stop python-chainguard-demo
+    docker stop python-debian-full-demo
     ```
 
 ## Expected Outcome
