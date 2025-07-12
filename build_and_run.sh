@@ -62,7 +62,7 @@ grype $CHAINGUARD_IMAGE -o json > ./reports/grype-report-chainguard.json
 echo "
 --- Demo Ready! ---
 "
-echo "Two Docker images have been built and scanned for vulnerabilities."
+echo "Three Docker images have been built and scanned for vulnerabilities."
 echo "The vulnerability reports have been saved in the 'reports' directory."
 echo "
 To run the containers and view the reports, use the following commands:
