@@ -1,6 +1,6 @@
 
 # Dockerfile.debian
-FROM python:3.11-slim-bookworm
+FROM python:3.14.0b4-slim-bullseye
 
 WORKDIR /app
 
@@ -13,7 +13,7 @@ COPY ./app /app
 # We just touch it here to ensure it exists
 RUN touch /app/grype-report.html
 
-ENV IMAGE_NAME="python:3.11-slim-bookworm"
+ENV IMAGE_NAME="python:3.14.0b4-slim-bullseye"
 
 EXPOSE 8080
 
