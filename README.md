@@ -63,7 +63,26 @@ Before you begin, ensure you have the following tools installed:
     *   Open a new tab and navigate to [http://localhost:8081](http://localhost:8081) to see the vulnerability report for the **Chainguard image**.
     *   Open a new tab and navigate to [http://localhost:8082](http://localhost:8082) to see the vulnerability report for the **Debian Full image**.
 
-5.  **Stop the containers:**
+5. **Bonus Points:**
+
+    a)  stop the Debian slim instance and log into the bash shell. 
+    ```bash
+    docker stop python-debian-demo
+    ```
+
+    *   restart the instance with **-it** and bash to execute bash in realtime. 
+    ```bash
+    docker run -it -p 8080:8080 --rm -v $(pwd)/reports/grype-report-debian.json:/app/grype-report.json:ro --name python-debian-demo python-debian-demo bash
+    ```
+
+    b)  check provernance of the Chainguard image
+    ```bash
+    cosign verify \
+  --certificate-oidc-issuer=https://token.actions.githubusercontent.com \
+  --certificate-identity=https://github.com/chainguard-images/images/.github/workflows/release.yaml@refs/heads/main \
+  cgr.dev/chainguard/python | jq    
+
+6.  **Stop the containers:**
 
     When you are finished, you can stop the containers with the following commands:
 
