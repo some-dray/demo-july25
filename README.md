@@ -3,9 +3,11 @@
 
 This demo showcases the security benefits of using Chainguard's minimal, secure container images compared to standard, general-purpose images.
 
-We build two functionally identical Python web applications, one based on a standard Debian image (`python:3.11-slim-bookworm`) and the other on a Chainguard Python image (`cgr.dev/chainguard/python`). We then use the `grype` vulnerability scanner to inspect both images and embed the results into the web application served by each container.
+We build three functionally identical Python web applications, one based on a standard Debian image (`python:3.14-slim-bookworm`), another based on a standard Debian full image (`python:latest`) and the last on a Chainguard Python image (`cgr.dev/chainguard/python`). We then use the `grype` vulnerability scanner to inspect all three images and embed the results into the web application served by each container.
 
 The result is a clear, visual demonstration of the reduced attack surface and improved security posture provided by Chainguard images.
+
+![Alt text](images/image.png)
 
 ## Prerequisites
 
