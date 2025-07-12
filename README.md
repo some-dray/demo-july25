@@ -13,6 +13,7 @@ Before you begin, ensure you have the following tools installed:
 
 *   **Docker:** [Installation Guide](https://docs.docker.com/engine/install/)
 *   **Grype:** [Installation Guide](https://github.com/anchore/grype)
+*   **Cosign:** [Installation Guide](https://github.com/sigstore/cosign)
 
 ## How to Run the Demo
 
@@ -75,10 +76,19 @@ Before you begin, ensure you have the following tools installed:
     docker run -it -p 8080:8080 --rm -v $(pwd)/reports/grype-report-debian.json:/app/grype-report.json:ro --name python-debian-demo python-debian-demo bash
     ```
 
-    b)  check provernance of the Chainguard image
+    b)  Chainguard Containers are signed using Sigstore, and you can check the included signatures using cosign.
     ```bash
     cosign verify --certificate-oidc-issuer=https://token.actions.githubusercontent.com --certificate-identity=https://github.com/chainguard-images/images/.github/workflows/release.yaml@refs/heads/main cgr.dev/chainguard/python | jq
     ```
+
+    c)  Review contents of the SBOM 
+    ```bash
+    cosign download attestation --platform=linux/amd64 --predicate-type=https://spdx.dev/Document cgr.dev/chainguard/python | jq -r .payload | base64 -d | jq .predicate
+    ```
+
+    d)  Verify the SBOM **note - --type specified below**
+    ```bash
+    cosign verify-attestation --type https://spdx.dev/Document --certificate-oidc-issuer=https://token.actions.githubusercontent.com --certificate-identity=https://github.com/chainguard-images/images/.github/workflows/release.yaml@refs/heads/main cgr.dev/chainguard/python    ```
 
 6.  **Stop the containers:**
 
