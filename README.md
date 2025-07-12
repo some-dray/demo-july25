@@ -77,10 +77,8 @@ Before you begin, ensure you have the following tools installed:
 
     b)  check provernance of the Chainguard image
     ```bash
-    cosign verify \
-  --certificate-oidc-issuer=https://token.actions.githubusercontent.com \
-  --certificate-identity=https://github.com/chainguard-images/images/.github/workflows/release.yaml@refs/heads/main \
-  cgr.dev/chainguard/python | jq    
+    cosign verify --certificate-oidc-issuer=https://token.actions.githubusercontent.com --certificate-identity=https://github.com/chainguard-images/images/.github/workflows/release.yaml@refs/heads/main cgr.dev/chainguard/python | jq
+    ```
 
 6.  **Stop the containers:**
 
