@@ -1,0 +1,15 @@
+# Dockerfile.debian-full
+FROM python:latest
+
+WORKDIR /app
+
+# Install Flask
+RUN pip install Flask
+
+COPY ./app /app
+
+ENV IMAGE_NAME="python:latest"
+
+EXPOSE 8080
+
+CMD ["python", "app.py"]

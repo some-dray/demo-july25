@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Grype Vulnerability Report for {{.Source.Target.UserInput}}</title>
+    <style>
+        body { font-family: sans-serif; margin: 2em; }
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid #ddd; padding: 8px; }
+        th { background-color: #f2f2f2; }
+        .severity-critical { background-color: #ffdddd; }
+        .severity-high { background-color: #ffeedd; }
+        .severity-medium { background-color: #ffffdd; }
+        .severity-low { background-color: #eeeeff; }
+        .severity-negligible { background-color: #fafafa; }
+        .severity-unknown { background-color: #fefefe; }
+    </style>
+</head>
+<body>
+    <h1>Grype Vulnerability Report</h1>
+    <p><strong>Image:</strong> {{.Source.Target.UserInput}}</p>
+    <p><strong>Generated:</strong> N/A</p>
+    <hr>
+    <h2>Vulnerabilities</h2>
+    {{if .Matches}}
+    <table>
+        <thead>
+            <tr>
+                <th>Severity</th>
+                <th>Vulnerability</th>
+                <th>Package</th>
+                <th>Version</th>
+                <th>Fix</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{range .Matches}}
+            <tr class="severity-{{.Vulnerability.Severity}}">
+                <td>{{.Vulnerability.Severity}}</td>
+                <td><a href="{{.Vulnerability.DataSource}}" target="_blank">{{.Vulnerability.ID}}</a></td>
+                <td>{{.Artifact.Name}}</td>
+                <td>{{.Artifact.Version}}</td>
+                <td>{{if .Vulnerability.Fix.Versions}}{{.Vulnerability.Fix.Versions}}{{else}}N/A{{end}}</td>
+            </tr>
+            {{end}}
+        </tbody>
+    </table>
+    {{else}}
+    <p>No vulnerabilities found!</p>
+    {{end}}
+</body>
+</html>

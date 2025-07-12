@@ -1,0 +1,42 @@
+# Dockerfile.chainguard
+
+# --- Builder Stage ---
+# Use the -dev image which includes a shell and build tools
+FROM cgr.dev/chainguard/python:latest-dev AS builder
+
+WORKDIR /app
+
+# Create a virtual environment to isolate dependencies
+RUN python -m venv venv
+ENV PATH="/app/venv/bin":$PATH
+
+# Install dependencies into the virtual environment
+# We call pip from the venv directly
+RUN pip install Flask gunicorn
+
+# --- Runner Stage ---
+# Use the minimal, hardened production image
+FROM cgr.dev/chainguard/python:latest
+
+WORKDIR /app
+
+# Copy the virtual environment from the builder stage
+COPY --from=builder /app/venv /app/venv
+
+# Copy the application code from the builder stage
+COPY /app /app
+
+# This file will be generated and mounted into the container.
+# Use exec form because the production image has no shell.
+
+
+# Set the image name for the web UI
+ENV IMAGE_NAME="cgr.dev/chainguard/python:latest (multi-stage)"
+
+# Add the venv to the PATH so the app can find the python executable
+ENV PATH="/app/venv/bin":$PATH
+
+EXPOSE 8080
+
+# Use the python from the venv to run the app
+ENTRYPOINT ["python", "app.py"]

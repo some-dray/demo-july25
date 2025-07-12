@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vulnerability Scan Results</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="/static/chainguard-logo.svg" alt="Chainguard Logo" class="logo">
+            <h1>Vulnerability Scan Results</h1>
+        </div>
+        <h2>Image: <code>{{ image_name }}</code></h2>
+
+        <!-- Vulnerability Summary -->
+        <div class="summary-container">
+            <h3>Vulnerability Summary</h3>
+            <div class="summary-grid">
+                <div class="summary-box critical">{{ summary.get('Critical', 0) }}<span>Critical</span></div>
+                <div class="summary-box high">{{ summary.get('High', 0) }}<span>High</span></div>
+                <div class="summary-box medium">{{ summary.get('Medium', 0) }}<span>Medium</span></div>
+                <div class="summary-box low">{{ summary.get('Low', 0) }}<span>Low</span></div>
+                <div class="summary-box negligible">{{ summary.get('Negligible', 0) }}<span>Negligible</span></div>
+                <div class="summary-box unknown">{{ summary.get('Unknown', 0) }}<span>Unknown</span></div>
+            </div>
+        </div>
+
+        <!-- Vulnerability Table -->
+        <div class="report-container">
+            <h3>Detailed Report</h3>
+            {% if vulnerabilities %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Severity</th>
+                        <th>Vulnerability</th>
+                        <th>Package</th>
+                        <th>Version</th>
+                        <th>Fix</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for match in vulnerabilities %}
+                    <tr class="severity-{{ match.vulnerability.severity.lower() }}">
+                        <td>{{ match.vulnerability.severity }}</td>
+                        <td><a href="{{ match.vulnerability.dataSource }}" target="_blank">{{ match.vulnerability.id }}</a></td>
+                        <td>{{ match.artifact.name }}</td>
+                        <td>{{ match.artifact.version }}</td>
+                        <td>{{ match.vulnerability.fix.versions | join(', ') if match.vulnerability.fix.versions else 'N/A' }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p class="no-vulnerabilities">No vulnerabilities found!</p>
+            {% endif %}
+        </div>
+
+        <div class="footer">
+            <p>Demo by Chainguard</p>
+        </div>
+    </div>
+</body>
+</html>

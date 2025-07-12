@@ -1,0 +1,20 @@
+
+# Dockerfile.debian
+FROM python:3.11-slim-bookworm
+
+WORKDIR /app
+
+# Install Flask
+RUN pip install Flask
+
+COPY ./app /app
+
+# This file will be generated and mounted into the container
+# We just touch it here to ensure it exists
+RUN touch /app/grype-report.html
+
+ENV IMAGE_NAME="python:3.11-slim-bookworm"
+
+EXPOSE 8080
+
+CMD ["python", "app.py"]
