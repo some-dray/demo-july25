@@ -34,11 +34,9 @@ Before you begin, ensure you have the following tools installed:
     *   Scan it with `grype` and save the report.
     *   Build the Chainguard-based Docker image.
     *   Scan it with `grype` and save the report.
-    *   Print the commands needed to run both containers.
+    *   Run 3 python base containers. A debian Slim, Debian Full & Chainguard.
 
-3.  **Run the containers:**
-
-    The script will output the `docker run` commands for both the Debian and Chainguard containers. They will look like this:
+3.  **The below commands are in the script to run the containers:**
 
     *   **Debian Container (on port 8080):**
 
